@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Power of Change – Healthy Eating & Wellness App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-main: #f5f8fb;
+      --bg-card: #ffffff;
+      --accent: #2f7d6d;
+      --accent-2: #3b82f6;
+      --accent-soft: #e0f2ed;
+      --accent-strong: #1f5a4c;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --border-soft: #d1d9e6;
+      --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08);
+      --radius-card: 14px;
+      --radius-pill: 999px;
+      --transition-fast: 0.2s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #e0f2fe 0, #f5f8fb 40%, #fdfdfd 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+      background: linear-gradient(135deg, #2f7d6d, #3b82f6);
+      color: #f9fafb;
+      padding: 18px 6vw 18px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.35);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      background: radial-gradient(circle at 30% 20%, #bbf7d0, #22c55e 40%, #15803d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ecfdf5;
+      font-weight: 800;
+      font-size: 22px;
+      box-shadow: 0 10px 22px rgba(15, 118, 110, 0.7);
+    }
+
+    .brand-text h1 {
+      font-size: 1.5rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-text h1 span.icon {
+      font-size: 1.4rem;
+    }
+
+    .brand-text p {
+      font-size: 0.9rem;
+      opacity: 0.95;
+    }
+
+    .header-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+      min-width: 260px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(226, 232, 240, 0.7);
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.18);
+      backdrop-filter: blur(6px);
+    }
+
+    .pill strong {
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      border-radius: var(--radius-pill);
+      border: none;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .primary-btn {
+      background: #f9fafb;
+      color: #111827;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.25);
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.35);
+      background: #e5f0ff;
+    }
+
+    .secondary-btn {
+      background: rgba(15, 23, 42, 0.15);
+      color: #e5e7eb;
+      border: 1px solid rgba(226, 232, 240, 0.7);
+    }
+
+    .secondary-btn:hover {
+      background: rgba(15, 23, 42, 0.25);
+    }
+
+    /* LAYOUT */
+    main {
+      padding-top: 140px;
+      padding-left: 310px;
+      padding-right: 32px;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 960px) {
+      main {
+        padding-left: 16px;
+      }
+      .sidebar {
+        display: none;
+      }
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed;
+      top: 140px;
+      left: 16px;
+      width: 260px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      padding: 14px 14px 16px;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(10px);
+      height: calc(100vh - 160px);
+      overflow-y: auto;
+      z-index: 9000;
+    }
+
+    .sidebar h3 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.9rem;
+    }
+
+    .nav-list button {
+      width: 100%;
+      text-align: left;
+      border-radius: 999px;
+      border: none;
+      padding: 7px 10px;
+      background: transparent;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      transition: background var(--transition-fast), color var(--transition-fast), padding-left var(--transition-fast);
+    }
+
+    .nav-list button span.label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-list button span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+    }
+
+    .nav-list button:hover,
+    .nav-list button.active {
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      padding-left: 14px;
+    }
+
+    .nav-list button.active span.dot {
+      background: var(--accent-strong);
+    }
+
+    .nav-footer {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border-soft);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* CONTENT */
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .section-card {
+      scroll-margin-top: 160px;
+      background: var(--bg-card);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border-soft);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.08), transparent 55%);
+      pointer-events: none;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title span.badge {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+    }
+
+    .section-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .section-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .section-meta span.tag {
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+    }
+
+    details.section-details {
+      margin-top: 6px;
+      border-radius: 12px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      position: relative;
+      z-index: 1;
+    }
+
+    summary.section-summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
+    summary.section-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .summary-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: #e5f0ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: #1d4ed8;
+    }
+
+    .summary-right {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .summary-chevron {
+      transition: transform var(--transition-fast);
+    }
+
+    details[open] .summary-chevron {
+      transform: rotate(90deg);
+    }
+
+    .section-body {
+      padding: 0 12px 10px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      background: #ffffff;
+      border-radius: 0 0 12px 12px;
+    }
+
+    .section-body-inner {
+      padding-top: 8px;
+      padding-bottom: 4px;
+    }
+
+    .section-body-inner ul {
+      margin-left: 18px;
+      margin-bottom: 8px;
+    }
+
+    .section-body-inner li {
+      margin-bottom: 4px;
+    }
+
+    .section-body-inner table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+    }
+
+    .section-body-inner th,
+    .section-body-inner td {
+      border: 1px solid #e5e7eb;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    .section-body-inner th {
+      background: #f3f4f6;
+      font-weight: 600;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px 18px;
+    }
+
+    .scripture {
+      font-style: italic;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .scripture-ref {
+      font-weight: 600;
+      color: var(--accent-strong);
+    }
+
+    .quote-block {
+      border-left: 3px solid var(--accent);
+      padding-left: 10px;
+      margin: 6px 0;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
+    .note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .day-block {
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed #e5e7eb;
+    }
+
+    .day-title {
+      font-weight: 600;
+      color: var(--accent-strong);
+      margin-bottom: 2px;
+    }
+
+    .meal-label {
+      font-weight: 600;
+    }
+
+    .centered {
+      text-align: center;
+    }
+
+    .emphasis {
+      font-weight: 600;
+      color: var(--accent-strong);
+    }
+
+    /* YOUTUBE SECTION */
+    .yt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px 16px;
+    }
+
+    .yt-card {
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      padding: 8px 10px;
+      background: #f9fafb;
+      font-size: 0.85rem;
+    }
+
+    .yt-card a {
+      color: #1d4ed8;
+      text-decoration: none;
+    }
+
+    .yt-card a:hover {
+      text-decoration: underline;
+    }
+
+    /* CALENDAR */
+    .calendar-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .calendar-header button {
+      border-radius: 999px;
+      border: 1px solid #e5e7eb;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      background: #f9fafb;
+      cursor: pointer;
+    }
+
+    .calendar-header button:hover {
+      background: #e5f0ff;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      font-size: 0.8rem;
+    }
+
+    .calendar-cell {
+      padding: 6px;
+      text-align: center;
+      border-radius: 6px;
+      background: #f9fafb;
+    }
+
+    .calendar-cell.header {
+      font-weight: 600;
+      background: #eef2ff;
+    }
+
+    .calendar-cell.today {
+      background: #d1fae5;
+      font-weight: 700;
+      border: 1px solid #10b981;
+    }
+
+    /* PERSONALIZED PLAN */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px 16px;
+      margin-bottom: 10px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.85rem;
+    }
+
+    .form-field label {
+      font-weight: 600;
+    }
+
+    .form-field select,
+    .form-field input {
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 0.85rem;
+    }
+
+    .form-actions {
+      margin-top: 6px;
+    }
+
+    .form-actions button {
+      border-radius: 999px;
+      border: none;
+      padding: 7px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--accent-2);
+      color: #f9fafb;
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    .form-actions button:hover {
+      background: #2563eb;
+    }
+
+    .plan-output {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      background: #f9fafb;
+      border-radius: 10px;
+      border: 1px dashed #d1d5db;
+      padding: 10px 12px;
+    }
+
+    .plan-output h4 {
+      margin-bottom: 4px;
+      color: var(--accent-strong);
+    }
+
+    .plan-output p {
+      margin-bottom: 4px;
+    }
+
+    .plan-output small {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+
+  <header>
+    <div class="header-inner">
+      <div class="brand-block">
+        <div class="brand-logo">HC</div>
+        <div class="brand-text">
+          <h1><span class="icon">💚</span>The Power of Change</h1>
+          <p>Healthy Eating & Shopping Guide · 2026 Journey to Health & Wellness</p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div class="pill-row">
+          <div class="pill">
+            <span>🎯</span>
+            <span><strong>Goal:</strong> Lose 33 lbs & build a healthier lifestyle</span>
+          </div>
+          <div class="pill">
+            <span>🧭</span>
+            <span><strong>Focus:</strong> Faith · Food · Fitness</span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="primary-btn" onclick="scrollToSection('section-spiritual', null)">
+            <span>✨</span><span>Start with Spiritual Motivation</span>
+          </button>
+          <button class="secondary-btn" onclick="scrollToSection('section-journey', null)">
+            <span>📌</span><span>View Journey Summary</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <h3>Plan navigation</h3>
+    <ul class="nav-list">
+      <li><button class="active" onclick="scrollToSection('section-spiritual', this)"><span class="label"><span class="dot"></span>Spiritual Motivation</span><span>🙏</span></button></li>
+      <li><button onclick="scrollToSection('section-monthly-goals', this)"><span class="label"><span class="dot"></span>Monthly Goals 2026</span><span>📅</span></button></li>
+      <li><button onclick="scrollToSection('section-food-choices', this)"><span class="label"><span class="dot"></span>Healthy Food Choices</span><span>🥗</span></button></li>
+      <li><button onclick="scrollToSection('section-grocery', this)"><span class="label"><span class="dot"></span>Grocery Guide</span><span>🛒</span></button></li>
+      <li><button onclick="scrollToSection('section-recipes', this)"><span class="label"><span class="dot"></span>Healthy Recipes</span><span>🍽️</span></button></li>
+      <li><button onclick="scrollToSection('section-meal-plan', this)"><span class="label"><span class="dot"></span>7-Day Meal Plan</span><span>📋</span></button></li>
+      <li><button onclick="scrollToSection('section-avoid-foods', this)"><span class="label"><span class="dot"></span>Foods to Avoid</span><span>🚫</span></button></li>
+      <li><button onclick="scrollToSection('section-exercise', this)"><span class="label"><span class="dot"></span>Exercise Plan</span><span>🏃‍♀️</span></button></li>
+      <li><button onclick="scrollToSection('section-youtube', this)"><span class="label"><span class="dot"></span>YouTube Resources</span><span>▶️</span></button></li>
+      <li><button onclick="scrollToSection('section-calendar', this)"><span class="label"><span class="dot"></span>Yearly Calendar</span><span>🗓️</span></button></li>
+      <li><button onclick="scrollToSection('section-personal-plan', this)"><span class="label"><span class="dot"></span>Personalized Plan</span><span>🧬</span></button></li>
+      <li><button onclick="scrollToSection('section-journey', this)"><span class="label"><span class="dot"></span>Your Journey</span><span>🌱</span></button></li>
+    </ul>
+    <div class="nav-footer">
+      <p><strong>Tip:</strong> Open one dropdown at a time and focus on one habit per day.</p>
+    </div>
+  </aside>
+
+  <main>
+    <section class="content">
+
+      <!-- SPIRITUAL MOTIVATION -->
+      <article class="section-card" id="section-spiritual">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-title"><span>Spiritual Motivation</span><span class="badge">Faith foundation</span></div>
+            <div class="section-subtitle">Anchor your health journey in Scripture, purpose, and daily dependence on Christ.</div>
+          </div>
+          <div class="section-meta"><span class="tag">Mind · Body · Spirit</span><span class="tag">Daily focus</span></div>
+        </div>
+
+        <details class="section-details" open>
+          <summary class="section-summary">
+            <div class="summary-left"><div class="summary-icon">📖</div><span class="summary-label">1 Corinthians 9:24–27 (NKJV)</span></div>
+            <div class="summary-right"><span>Discipline & purpose</span><span class="summary-chevron">▶</span></div>
+          </summary>
+          <div class="section-body">
+            <div class="section-body-inner">
+              <p class="scripture"><span class="scripture-ref">“Do you not know that those who run in a race all run, but one receives the prize? Run in such a way that you may obtain it...”</span></p>
+              <div class="quote-block">
+                Just as athletes train with discipline and purpose to win a race, you must approach your health journey with intention and self‑control. Every healthy choice is training for a greater prize.
+              </div>
+              <p>Each meal, workout, and moment of restraint is an act of worship and discipline, bringing your body under control to honor God.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="section-details">
+          <summary class="section-summary">
+            <div class="summary-left"><div class="summary-icon">✝️</div><span class="summary-label">Philippians 4:13 (NKJV)</span></div>
+            <div class="summary-right"><span>Strength in Christ</span><span class="summary-chevron">▶</span></div>
+          </summary>
+          <div class="section-body">
+            <div class="section-body-inner">
+              <p class="scripture"><span class="scripture-ref">“I can do all things through Christ who strengthens me.”</span></p>
+              <p>When you feel tired, tempted, or discouraged, this verse reminds you that you are not doing this alone. Christ’s strength is available for every small decision.</p>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <!-- MONTHLY GOALS -->
+      <article class="section-card" id="section-monthly-goals">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-title"><span>Monthly Goals for 2026</span><span class="badge">Strategic roadmap</span></div>
+            <div class="section-subtitle">Break your 33‑pound goal into sustainable, faith‑fueled monthly milestones.</div>
+          </div>
+          <div class="section-meta"><span class="tag">Weight · Nutrition · Movement</span><span class="tag">Sustainable change</span></div>
+        </div>
+
+        <details class="section-details" open>
+          <summary class="section-summary">
+            <div class="summary-left"><div class="summary-icon">⚖️</div><span class="summary-label">Weight loss targets</span></div>
+            <div class="summary-right"><span>2–3 lbs/month</span><span class="summary-chevron">▶</span></div>
+          </summary>
+          <div class="section-body">
+            <div class="section-body-inner">
+              <ul>
+                <li>Lose 2–3 pounds per month for sustainable progress.</li>
+                <li>Total goal: 33 pounds over 11–12 months.</li>
+                <li>Focus on losing body fat while building muscle mass.</li>
+              </ul>
+              <p class="note">Slow, steady progress is more sustainable than crash dieting.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="section-details">
+          <summary class="section-summary">
+            <div class="summary-left"><div class="summary-icon">🥦</div><span class="summary-label">Healthy eating goals</span></div>
+            <div class="summary-right"><span>Daily habits</span><span class="summary-chevron">▶</span></div>
+          </summary>
+          <div class="section-body">
+            <div class="section-body-inner two-column">
+              <div>
+                <ul>
+                  <li>Eat 5–6 servings of vegetables daily.</li>
+                  <li>Drink at least 64 oz of water per day.</li>
+                  <li>Prepare meals at home 5–6 days per week.</li>
+                </ul>
+              </div>
+              <div>
+                <ul>
+                  <li>Limit processed foods and added sugars.</li>
+                  <li>Practice portion control at every meal.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="section-details">
+          <summary class="section-summary">
+            <div class="summary-left"><div class="summary-icon">💪</div><span class="summary-label">Exercise goals</span></div>
+            <div class="summary-right"><span>Weekly movement</span><span class="summary-chevron">▶</span></div>
+          </summary>
+          <div class="section-body">
+            <div class="section-body-inner two-column">
+              <div>
+                <ul>
+                  <li>Complete 4–5 cardio sessions per week (30–45 minutes each).</li>
+                  <li>Strength training 3–4 times per week.</li>
+                  <li>Core exercises daily (15–20 minutes).</li>
+                </ul>
+              </div>
+              <div>
+                <ul>
+                  <li>Take 10,000 steps daily.</li>
+                  <li>Include 2–3 rest or active recovery days per week.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <!-- HEALTHY FOOD CHOICES -->
+      <article class="section-card" id="section-food-choices">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-title"><span>Healthy Food Choices by Food Group</span><span class="badge">Nourishing options</span></div>
+            <div class="section-subtitle">Build your plate with whole, nutrient‑dense foods that support fat loss and muscle gain.</div>
+          </div>
+          <div class="section-meta"><span class="tag">Whole foods</span><span class="tag">Balanced plate</span></div>
+        </div>
+
+        <details class="section-details" open>
+          <summary class="section-summary">
+            <div class="summary-left"><div class="summary-icon">🥬</div><span class="summary-label">Vegetables (5–6 servings daily)</span></div>
+            <div class="summary-right"><span>Fiber & micronutrients</span><span class="summary-chevron">▶</span></div>
+          </summary>
+          <div class="section-body">
+            <div class="section-body-inner two-column">
+              <div>
+                <h4>Leafy greens</h4>
+                <ul><li>Spinach</li><li>Kale</li><li>Romaine lettuce</li><li>Arugula</li></ul>
+                <h4>Cruciferous</h4>
+                <ul><li>Broccoli</li><li>Cauliflower</li><li>Brussels sprouts</li><li>Cabbage</li></ul>
+              </div>
+              <div>
+                <h4>Colorful veggies</h4>
+                <ul><li>Bell peppers</li><li>Tomatoes</li><li>Carrots</li><li>Zucchini</li></ul>
+                <h4>Root vegetables</h4>
+                <ul><li>Sweet potatoes</li><li>Beets</li><li>Turnips</li></ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="section-details">
+          <summary class="section-summary">
+            <div class="summary-left"><div class="summary-icon">🍎</div><span class="summary-label">Fruits (2–3 servings daily)</span></div>
+            <div class="summary-right"><span>Natural sweetness</span><span class="summary-chevron">▶</span></div>
+          </summary>
+          <div class="section-body">
+            <div class="section-body-inner two-column">
+              <div>
+                <h4>Berries</h4>
+                <ul><li>Blueberries</li><li>Strawberries</li><li>Raspberries</li><li>Blackberries</li></ul>
+              </div>
+              <div>
+                <h4>Other fruits</h4>
+                <ul><li>Oranges</li><li>Apples</li><li>Pears</li><li>Peaches</li><li>Bananas (in moderation)</li></ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="section-details">
+          <summary class="section-summary">
+            <div class="summary-left"><div class="summary-icon">🍗</div><span class="summary-label">Lean proteins (4–6 oz per meal)</span></div>
+            <div class="summary-right"><span>Muscle & satiety</span><span class="summary-chevron">▶</span></div>
+          </summary>
+          <div class="section-body">
+            <div class="section-body-inner two-column">
+              <div>
+                <ul><li>Chicken breast (skinless)</li><li>Turkey breast</li><li>Fish: salmon, tuna, tilapia, cod</li><li>Eggs and egg whites</li></ul>
+              </div>
+              <div>
+                <ul><li>Greek yogurt (plain, low‑fat)</li><li>Lean beef (95% lean)</li><li>Pork tenderloin</li><li>Tofu, tempeh, beans, lentils</li></ul>
+              </div>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <!-- GROCERY GUIDE -->
+      <article class="section-card" id="section-grocery">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-title"><span>Grocery Shopping Guide: Walmart vs Kroger</span><span class="badge">Smart budgeting</span></div>
+            <div class="section-subtitle">Compare prices on healthy staples so your budget supports your goals.</div>
+          </div>
+          <div class="section-meta"><span class="tag">Cost‑aware choices</span><span class="tag">Store comparison</span></div>
+        </div>
+
+        <details class="section-details" open>
+          <summary class="section-summary">
+            <div class="summary-left"><div class="summary-icon">🥕</div><span class="summary-label">Fresh vegetables</span></div>
+            <div class="summary-right"><span>Walmart vs Kroger</span><span class="summary-chevron">▶</span></div>
+          </summary>
+          <div class="section-body">
+            <div class="section-body-inner">
+              <table>
+                <thead><tr><th>Item</th><th>Walmart</th><th>Kroger</th></tr></thead>
+                <tbody>
+                  <tr><td>Spinach (1 lb bag)</td><td>$2.98</td><td>$3.29</td></tr>
+                  <tr><td>Broccoli (per lb)</td><td>$1.48</td><td>$1.79</td></tr>
+                  <tr><td>Bell Peppers (3‑pack)</td><td>$3.47</td><td>$3.99</td></tr>
+                  <tr><td>Carrots (2 lb bag)</td><td>$1.98</td><td>$2.29</td></tr>
+                </tbody>
+              </table>
+              <p class="note">Prices are approximate and may vary by location.</p>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <!-- RECIPES -->
+      <article class="section-card" id="section-recipes">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-title"><span>Healthy Recipes for Weight Loss</span><span class="badge">Practical cooking</span></div>
+            <div class="section-subtitle">Simple, balanced meals that align with your calorie, protein, and flavor goals.</div>
+          </div>
+          <div class="section-meta"><span class="tag">High protein</span><span class="tag">Balanced macros</span></div>
+        </div>
+
+        <details class="section-details" open>
+          <summary class="section-summary">
+            <div class="summary-left"><div class="summary-icon">🥗</div><span class="summary-label">Grilled Chicken & Vegetable Bowl</span></div>
+            <div class="summary-right"><span>350 kcal</span><span class="summary-chevron">▶</span></div>
+          </summary>
+          <div class="section-body">
+            <div class="section-body-inner">
+              <p><strong>Ingredients:</strong> Chicken breast, quinoa, broccoli, bell pepper, olive oil, garlic, lemon.</p>
+              <p><strong>Instructions:</strong> Cook quinoa, grill chicken, steam broccoli, sauté peppers, assemble bowl, drizzle with olive oil and lemon.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="section-details">
+          <summary class="section-summary">
+            <div class="summary-left"><div class="summary-icon">🐟</div><span class="summary-label">Mediterranean Salmon with Roasted Vegetables</span></div>
+            <div class="summary-right"><span>420 kcal</span><span class="summary-chevron">▶</span></div>
+          </summary>
+          <div class="section-body">
+            <div class="section-body-inner">
+              <p><strong>Ingredients:</strong> Salmon fillets, zucchini, cherry tomatoes, red onion, olive oil, garlic, herbs.</p>
+              <p><strong>Instructions:</strong> Roast vegetables, sear salmon, serve with lemon and herbs.</p>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <!-- 7-DAY MEAL PLAN -->
+      <article class="section-card" id="section-meal-plan">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-title"><span>7‑Day Meal Plan</span><span class="badge">Weekly structure</span></div>
+            <div class="section-subtitle">A 1,500–1,800 calorie framework to keep you nourished and progressing.</div>
+          </div>
+          <div class="section-meta"><span class="tag">Pre‑planned</span><span class="tag">Flexible portions</span></div>
+        </div>
+
+        <details class="section-details" open>
+          <summary class="section-summary">
+            <div class="summary-left"><div class="summary-icon">📆</div><span class="summary-label">Day 1: Monday</span></div>
+            <div class="summary-right"><span>Strong start</span><span class="summary-chevron">▶</span></div>
+          </summary>
+          <div class="section-body">
+            <div class="section-body-inner">
+              <div class="day-block">
+                <div class="day-title">Day 1: Monday</div>
+                <p><span class="meal-label">Breakfast:</span> Greek yogurt parfait with berries and granola.</p>
+                <p><span class="meal-label">Lunch:</span> Grilled chicken salad with mixed greens.</p>
+                <p><span class="meal-label">Dinner:</span> Mediterranean salmon with roasted vegetables.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <!-- FOODS TO AVOID -->
+      <article class="section-card" id="section-avoid-foods">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-title"><span>Foods to Avoid for Weight Loss</span><span class="badge">Guardrails</span></div>
+            <div class="section-subtitle">Reduce foods that sabotage progress, spike cravings, and drain your energy.</div>
+          </div>
+          <div class="section-meta"><span class="tag">Awareness</span><span class="tag">Better swaps</span></div>
+        </div>
+
+        <details class="section-details" open>
+          <summary class="section-summary">
+            <div class="summary-left"><div class="summary-icon">🥤</div><span class="summary-label">Sugary beverages</span></div>
+            <div class="summary-right"><span>Empty calories</span><span class="summary-chevron">▶</span></div>
+          </summary>
+          <div class="section-body">
+            <div class="section-body-inner">
+              <p><span class="emphasis">Examples:</span> Soda, sweet tea, energy drinks, sugary juices.</p>
+              <p>They add calories without fullness and can drive cravings.</p>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <!-- EXERCISE PLAN -->
+      <article class="section-card" id="section-exercise">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-title"><span>Exercise Plan for Weight Loss & Muscle Gain</span><span class="badge">Movement strategy</span></div>
+            <div class="section-subtitle">Combine cardio, strength, and core work to reshape your body and support long‑term health.</div>
+          </div>
+          <div class="section-meta"><span class="tag">5–6 days/week</span><span class="tag">Cardio + Strength + Core</span></div>
+        </div>
+
+        <details class="section-details" open>
+          <summary class="section-summary">
+            <div class="summary-left"><div class="summary-icon">📅</div><span class="summary-label">Weekly exercise schedule</span></div>
+            <div class="summary-right"><span>Structured routine</span><span class="summary-chevron">▶</span></div>
+          </summary>
+          <div class="section-body">
+            <div class="section-body-inner">
+              <ul>
+                <li><span class="emphasis">Monday:</span> Upper body strength + core.</li>
+                <li><span class="emphasis">Tuesday:</span> Cardio + abs.</li>
+                <li><span class="emphasis">Wednesday:</span> Lower body strength + core.</li>
+                <li><span class="emphasis">Thursday:</span> HIIT + abs.</li>
+                <li><span class="emphasis">Friday:</span> Full body strength + core.</li>
+                <li><span class="emphasis">Saturday:</span> Steady‑state cardio + abs.</li>
+                <li><span class="emphasis">Sunday:</span> Rest or active recovery.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <!-- YOUTUBE RESOURCES -->
+      <article class="section-card" id="section-youtube">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-title"><span>YouTube Resources</span><span class="badge">Guided support</span></div>
+            <div class="section-subtitle">Curated YouTube searches to support each area of your plan.</div>
+          </div>
+          <div class="section-meta"><span class="tag">Video learning</span><span class="tag">Free resources</span></div>
+        </div>
+
+        <div class="section-body">
+          <div class="section-body-inner yt-grid">
+            <div class="yt-card">
+              <strong>Spiritual Motivation</strong>
+              <p><a href="https://www.youtube.com/results?search_query=christian+health+and+fitness+motivation" target="_blank">Christian health & fitness motivation</a></p>
+            </div>
+            <div class="yt-card">
+              <strong>Healthy Eating & Meal Prep</strong>
+              <p><a href="https://www.youtube.com/results?search_query=healthy+meal+prep+for+weight+loss" target="_blank">Healthy meal prep for weight loss</a></p>
+            </div>
+            <div class="yt-card">
+              <strong>Grocery Shopping</strong>
+              <p><a href="https://www.youtube.com/results?search_query=healthy+grocery+haul+on+a+budget" target="_blank">Healthy grocery haul on a budget</a></p>
+            </div>
+            <div class="yt-card">
+              <strong>Workouts & Cardio</strong>
+              <p><a href="https://www.youtube.com/results?search_query=beginner+full+body+workout+no+equipment" target="_blank">Beginner full body workout (no equipment)</a></p>
+            </div>
+            <div class="yt-card">
+              <strong>Core & Belly Fat</strong>
+              <p><a href="https://www.youtube.com/results?search_query=beginner+core+workout+at+home" target="_blank">Beginner core workout at home</a></p>
+            </div>
+            <div class="yt-card">
+              <strong>Stress & Sleep</strong>
+              <p><a href="https://www.youtube.com/results?search_query=christian+meditation+for+sleep" target="_blank">Christian meditation for sleep</a></p>
+            </div>
+          </div>
+          <p class="note">These links open YouTube search results so you can choose creators and videos that resonate with you.</p>
+        </div>
+      </article>
+
+      <!-- YEARLY CALENDAR -->
+      <article class="section-card" id="section-calendar">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-title"><span>Yearly Calendar</span><span class="badge">Plan your year</span></div>
+            <div class="section-subtitle">Advance month by month and mark key milestones in your health journey.</div>
+          </div>
+          <div class="section-meta"><span class="tag">2026 focus</span><span class="tag">Monthly view</span></div>
+        </div>
+
+        <div class="section-body">
+          <div class="section-body-inner calendar-container">
+            <div class="calendar-header">
+              <button onclick="changeMonth(-1)">◀ Prev</button>
+              <div id="calendar-title" style="font-weight:600;"></div>
+              <button onclick="changeMonth(1)">Next ▶</button>
+            </div>
+            <div class="calendar-grid" id="calendar-grid"></div>
+            <p class="note">Use this calendar to note weigh‑ins, workout streaks, or spiritual milestones.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- PERSONALIZED PLAN -->
+      <article class="section-card" id="section-personal-plan">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-title"><span>Personalized Health Plan</span><span class="badge">Input‑based guidance</span></div>
+            <div class="section-subtitle">Enter your details to see a sample plan and suggested weight‑loss range.</div>
+          </div>
+          <div class="section-meta"><span class="tag">Dynamic</span><span class="tag">Per person</span></div>
+        </div>
+
+        <div class="section-body">
+          <div class="section-body-inner">
+            <form onsubmit="event.preventDefault(); generatePlan();">
+              <div class="form-grid">
+                <div class="form-field">
+                  <label for="gender">Gender</label>
+                  <select id="gender" required>
+                    <option value="">Select...</option>
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                    <option value="other">Other / Prefer not to say</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="age">Age</label>
+                  <input type="number" id="age" min="10" max="120" placeholder="e.g., 38" required />
+                </div>
+                <div class="form-field">
+                  <label>Height</label>
+                  <div style="display:flex; gap:6px;">
+                    <select id="height-feet" required>
+                      <option value="">ft</option>
+                      <option>4</option><option>5</option><option>6</option><option>7</option>
+                    </select>
+                    <select id="height-inches" required>
+                      <option value="">in</option>
+                      <option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                      <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label for="weight">Current Weight (lbs)</label>
+                  <input type="number" id="weight" min="60" max="600" placeholder="e.g., 210" required />
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="submit">Generate Sample Plan</button>
+              </div>
+            </form>
+
+            <div class="plan-output" id="plan-output" style="display:none;">
+              <h4>Your Sample Health Plan Snapshot</h4>
+              <p id="plan-bmi"></p>
+              <p id="plan-target"></p>
+              <p id="plan-summary"></p>
+              <p id="plan-suggestion"></p>
+              <small>This is general educational information and not medical advice. Always consult a healthcare professional for personalized guidance.</small>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- JOURNEY SUMMARY -->
+      <article class="section-card" id="section-journey">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-title"><span>Your Journey to Health Starts Now</span><span class="badge">Mindset & commitment</span></div>
+            <div class="section-subtitle">This is more than weight loss—it’s a lifestyle transformation rooted in faith, discipline, and grace.</div>
+          </div>
+          <div class="section-meta"><span class="tag">Reflection</span><span class="tag">Long‑term vision</span></div>
+        </div>
+
+        <div class="section-body">
+          <div class="section-body-inner">
+            <p>Every healthy meal you prepare, every workout you complete, and every unhealthy snack you resist is a victory. Progress may be slow at times, but consistency compounds.</p>
+            <p>Use this app as a living guide—adjust recipes, swap workouts, and revisit Scriptures as your season changes. You can do all things through Christ who strengthens you.</p>
+            <p class="centered"><strong>You’ve got this. Let The Power of Change begin today.</strong></p>
+          </div>
+        </div>
+      </article>
+
+    </section>
+  </main>
+</div>
+
+<script>
+  function scrollToSection(id, btn) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    document.querySelectorAll(".nav-list button").forEach(b => b.classList.remove("active"));
+    if (btn) btn.classList.add("active");
+  }
+
+  // Calendar logic
+  let currentDate = new Date();
+  let currentMonth = currentDate.getMonth();
+  let currentYear = currentDate.getFullYear();
+
+  const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+  function renderCalendar() {
+    const title = document.getElementById("calendar-title");
+    const grid = document.getElementById("calendar-grid");
+    if (!title || !grid) return;
+
+    title.textContent = monthNames[currentMonth] + " " + currentYear;
+    grid.innerHTML = "";
+
+    dayNames.forEach(d => {
+      const cell = document.createElement("div");
+      cell.className = "calendar-cell header";
+      cell.textContent = d;
+      grid.appendChild(cell);
+    });
+
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    for (let i = 0; i < firstDay; i++) {
+      const empty = document.createElement("div");
+      empty.className = "calendar-cell";
+      grid.appendChild(empty);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const cell = document.createElement("div");
+      cell.className = "calendar-cell";
+      cell.textContent = d;
+
+      if (
+        d === currentDate.getDate() &&
+        currentMonth === currentDate.getMonth() &&
+        currentYear === currentDate.getFullYear()
+      ) {
+        cell.classList.add("today");
+      }
+
+      grid.appendChild(cell);
+    }
+  }
+
+  function changeMonth(delta) {
+    currentMonth += delta;
+    if (currentMonth < 0) {
+      currentMonth = 11;
+      currentYear--;
+    } else if (currentMonth > 11) {
+      currentMonth = 0;
+      currentYear++;
+    }
+    renderCalendar();
+  }
+
+  // Personalized plan logic
+  function generatePlan() {
+    const gender = document.getElementById("gender").value;
+    const age = parseInt(document.getElementById("age").value, 10);
+    const feet = parseInt(document.getElementById("height-feet").value, 10);
+    const inches = parseInt(document.getElementById("height-inches").value, 10);
+    const weight = parseFloat(document.getElementById("weight").value);
+
+    if (!gender || !age || isNaN(feet) || isNaN(inches) || !weight) return;
+
+    const totalInches = feet * 12 + inches;
+    const bmi = 703 * weight / (totalInches * totalInches);
+    let category = "";
+    if (bmi < 18.5) category = "underweight";
+    else if (bmi < 25) category = "in the normal range";
+    else if (bmi < 30) category = "in the overweight range";
+    else category = "in the obesity range";
+
+    let suggestedLossText = "";
+    if (bmi < 25) {
+      suggestedLossText = "Your BMI is in the normal range. A focus on maintenance, strength, and healthy habits may be most appropriate.";
+    } else {
+      const minLoss = (weight * 0.05).toFixed(1);
+      const maxLoss = (weight * 0.15).toFixed(1);
+      suggestedLossText = `A common general guideline is aiming for about 5–15% of your current weight over time. For you, that’s roughly ${minLoss}–${maxLoss} lbs, at a gradual pace (about 0.5–2 lbs per week).`;
+    }
+
+    const planOutput = document.getElementById("plan-output");
+    const bmiEl = document.getElementById("plan-bmi");
+    const targetEl = document.getElementById("plan-target");
+    const summaryEl = document.getElementById("plan-summary");
+    const suggestionEl = document.getElementById("plan-suggestion");
+
+    bmiEl.textContent = `Your estimated BMI is ${bmi.toFixed(1)}, which is ${category}.`;
+    targetEl.textContent = suggestedLossText;
+    summaryEl.textContent = `A sample plan for you would emphasize: 5–6 servings of vegetables daily, lean protein at each meal, mostly whole grains, and 4–5 days per week of movement (cardio + strength), adjusted to your fitness level.`;
+    suggestionEl.textContent = `Pair this with the spiritual motivation section, the 7‑day meal plan, and the exercise plan above to build a routine that fits your season of life.`;
+
+    planOutput.style.display = "block";
+  }
+
+  // Initialize calendar on load
+  document.addEventListener("DOMContentLoaded", renderCalendar);
+</script>
+</body>
+</html>
